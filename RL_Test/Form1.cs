@@ -16,7 +16,7 @@ namespace RL_Test
 {
     public partial class Form1 : Form
     {
-        System.IO.StreamWriter writer = new System.IO.StreamWriter("C:\\Users\\Eric\\Google Drive\\Lethbridge Projects\\Presentation Sept 28\\cumulativeReward.txt");
+       // System.IO.StreamWriter writer = new System.IO.StreamWriter("C:\\Users\\Eric\\Google Drive\\Lethbridge Projects\\Presentation Sept 28\\cumulativeReward.txt");
         World world;
         bool saveImages = false;
         string saveFolder; int numSavedImages = 0;
@@ -44,7 +44,7 @@ namespace RL_Test
                 label1.Refresh();
 
                 chart1.Series.Last().Points.AddY(cumulativeReward);
-                writer.WriteLine("Reward: " + cumulativeReward);
+               // //writer.WriteLine("Reward: " + cumulativeReward);
 
                 if (displayCheckBox.Checked)
                 {
@@ -84,8 +84,8 @@ namespace RL_Test
             //{
             //    chart1.Series.Last().Points.AddXY(i, world.agent.cumulativeReward[i]);
             //}
-            writer.Flush();
-            //writer.Close();
+            //writer.Flush();
+            ////writer.Close();
         }
 
         private void loadMapButton_Click(object sender, EventArgs e)
@@ -103,8 +103,8 @@ namespace RL_Test
 
         private void worldModelButton_Click(object sender, EventArgs e)
         {
-            System.IO.StreamWriter w = new System.IO.StreamWriter("log.txt", false);
-            w.Close();
+           // System.IO.Stream//writer w = new System.IO.Stream//writer("log.txt", false);
+           // w.Close();
 
             world.addAgent(typeof(EGreedyPolicy<,>), typeof(ModelBasedValue<,>));
             chart1.Series.Add(chart1.Series.Last().Name + "1");
@@ -125,8 +125,8 @@ namespace RL_Test
 
         private void QLearnButton_Click(object sender, EventArgs e)
         {
-            System.IO.StreamWriter w = new System.IO.StreamWriter("log.txt", false);
-            w.Close();
+           // System.IO.StreamWriter w = new System.IO.StreamWriter("log.txt", false);
+            //w.Close();
 
             world.addAgent(typeof(EGreedyPolicy<,>), typeof(ModelFreeValue<,>));
             chart1.Series.Add(chart1.Series.Last().Name + "1");
@@ -181,6 +181,19 @@ namespace RL_Test
             MessageBox.Show(String.Join(",",tree.GetChildren("a", 3)));
         }
 
-        
+        private void button2_Click(object sender, EventArgs e)
+        {
+            int wS = 32;    //WorldSize p[0]
+            bool RL = false;    //RLMethod p[1];  'F' for QL, 'T' For MB
+            double a = 0.9; //alpha p[2];
+            double g = 0.8; //Gamma p[3];
+            int tO = 5;     //timeOut p[4];
+            double mR = 0.5; //Manager Rewards p[5];
+            Policy<int[], int[]> cP = new EGreedyPolicy<int[], int[]> (); //chosen Policy p[6]
+
+            world.addAgent(typeof(EGreedyPolicy<,>), typeof(feudalRL_Library.Boss<,>),wS,RL,a,g,tO,mR,cP);
+            chart1.Series.Add(chart1.Series.Last().Name + "1");
+            chart1.Series.Last().ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+        }
     }
 }

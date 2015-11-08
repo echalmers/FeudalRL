@@ -11,7 +11,7 @@ namespace MultiResolutionRL
 {
     public interface World
     {
-        void addAgent(Type policyType, Type actionValueType, params int[] actionValueParameters);
+        void addAgent(Type policyType, Type actionValueType, params object[] actionValueParameters);
         double stepAgent();
         void Load(string filename);
         Bitmap showState(int width, int height, bool showPath = false);
@@ -116,7 +116,7 @@ namespace MultiResolutionRL
             return agent.cumulativeReward.Last();
         }
 
-        public void addAgent(Type policyType, Type actionValueType, params int[] actionValueParameters)
+        public void addAgent(Type policyType, Type actionValueType, params object[] actionValueParameters)
         {
             policyType = policyType.MakeGenericType(typeof(int[]), typeof(int[]));
             Policy<int[], int[]> newPolicy = (Policy<int[],int[]>)Activator.CreateInstance(policyType);
