@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "feudalRL_Library", "feudalR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiResolutionRL", "..\..\MultiLevelRL\MultiResolutionRL\MultiResolutionRL.csproj", "{A5C06884-6D62-4F15-8A14-7411A0569664}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RL_Test", "..\..\MultiLevelRL\RL_Test\RL_Test.csproj", "{684BF1CC-2899-4489-A725-CA9E67DE5F5F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E65DD8D6-C15C-418D-88B2-1F719433AD9E} = {E65DD8D6-C15C-418D-88B2-1F719433AD9E}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +26,10 @@ Global
 		{A5C06884-6D62-4F15-8A14-7411A0569664}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5C06884-6D62-4F15-8A14-7411A0569664}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5C06884-6D62-4F15-8A14-7411A0569664}.Release|Any CPU.Build.0 = Release|Any CPU
+		{684BF1CC-2899-4489-A725-CA9E67DE5F5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{684BF1CC-2899-4489-A725-CA9E67DE5F5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{684BF1CC-2899-4489-A725-CA9E67DE5F5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{684BF1CC-2899-4489-A725-CA9E67DE5F5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

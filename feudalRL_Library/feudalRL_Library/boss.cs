@@ -9,7 +9,7 @@ using MultiResolutionRL.ValueCalculation;
 namespace feudalRL_Library
 {
 
-    public class Boss : ActionValue<int[], int[]>
+    public class Boss<stateType, actionType> : ActionValue<int[], int[]>
     {
         public Boss(IEqualityComparer<int[]> StateComparer, IEqualityComparer<int[]> ActionComparer
             , List<int[]> AvailableActions, int[] StartState, params object[] parameters)
@@ -18,8 +18,11 @@ namespace feudalRL_Library
             //Boss will have one child, This child will be the first manager, that then has 4 children of its own.
             SC = StateComparer;
             AC = ActionComparer;
-            AvailAct = AvailableActions;
+            AvailAct = new List<int[]>(AvailableActions);
             AvailAct.Add(new int[2] { 0, 0 });
+            StateCompare = StateComparer;
+
+
 
 
 
@@ -29,34 +32,51 @@ namespace feudalRL_Library
             timeOut = (int)parameters[4]; //Number of runs before a manager will force a sub-manager to stop
             managerRewards = (double)parameters[5]; // Amount a manager will reward its sub-manager for completing a command
             chosenPolicy = (MultiResolutionRL.Policy<int[], int[]>)parameters[6];
+            WorldSize = (int)parameters[0];
 
-            managerLevels = (int)Math.Log((int)parameters[0], 4); //The depth of the RL system
+            managerLevels = (int)Math.Log((int)parameters[0], 2); //The depth of the RL system
 
-            child = new manager(this, 0, 1, 1);
+            child = new manager(this, 1);
+
+            steps = timeOut;
 
         }
 
         //Run function will reward and command sub manager
         //Will be the method called to iterate an action/move
         //Will Need to Reward if the environment Gives a reward as well
+
+        int[] permaCmd = { 0, 0 };
         void Run()
         {
-
-            child.command('*');
-                child.run();   
+            child.command(permaCmd);
+                child.run();
+            steps--; 
         }
-
-
+        
         public override double[] value(int[] state, List<int[]> actions)
         {
             Run();
-            return valuesReturn;
+           // for (int i = 0; i < 4; i++)
+              //  Console.WriteLine("ValuesReturn at: " + i + " = " + valuesReturn[i]);
+                return valuesReturn;
+            
+
         }
 
         public override void update(MultiResolutionRL.StateTransition<int[], int[]> transition)
         {
+            lastTrans = transition;
+            lastAction = transition.action;
             envRwrd = transition.reward;
+            cumReward += envRwrd;
             currAgentState = transition.newState;
+
+                child.reward(0);
+
+           // for (int i = 0; i < 4; i++)
+           //     Console.WriteLine("NEW ValuesReturn at: " + i + " = " + valuesReturn[i]);
+
         }
 
         public override int[] PredictNextState(int[] state, int[] action)
@@ -83,12 +103,21 @@ namespace feudalRL_Library
         public double gamma;
         public bool RLMETHOD;
         public double[] valuesReturn;
-        public int[] currAgentState;
+        public int[] currAgentState = new int[2];
         public MultiResolutionRL.Policy<int[], int[]> chosenPolicy;
         public IEqualityComparer<int[]> SC;
         public IEqualityComparer<int[]> AC;
-        public List<int[]> AvailAct;
+        public List<int[]> AvailAct = new List<int[]>();
         public double envRwrd;
+        public int[] lastAction = new int[2] { 0, 0 };
+       public MultiResolutionRL.StateTransition<int[], int[]> lastTrans;
+        public IEqualityComparer<int[]> StateCompare;
+        public int WorldSize;
+
+        double cumReward = 0;
+        int steps;
+
+
 
         feudalRL_Library.manager child;
        
