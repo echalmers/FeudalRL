@@ -53,7 +53,7 @@ namespace MultiResolutionRL.ValueCalculation
             {
                 models[i] = new ModelBasedValue<int[], int[]>(stateComparer, actionComparer, availableActions, StartState) 
                 { 
-                    writer = writer, 
+                    //writer = writer, 
                     maxUpdates = 10, 
                     defaultQ = i==0 ? 10 : 0,
                     gamma = i==0 ? 0.9 : 0.5

@@ -183,12 +183,12 @@ namespace RL_Test
 
         private void button2_Click(object sender, EventArgs e)
         {
-            int wS = 32;    //WorldSize p[0]
+            int wS = 16;    //WorldSize p[0]
             bool RL = false;    //RLMethod p[1];  'F' for QL, 'T' For MB
-            double a = 0.9; //alpha p[2];
+            double a = 0.1; //alpha p[2];
             double g = 0.8; //Gamma p[3];
-            int tO = 5;     //timeOut p[4];
-            double mR = 0.5; //Manager Rewards p[5];
+            int tO = wS;     //timeOut p[4];
+            double mR = 1; //Manager Rewards p[5];
             Policy<int[], int[]> cP = new EGreedyPolicy<int[], int[]> (); //chosen Policy p[6]
 
             world.addAgent(typeof(EGreedyPolicy<,>), typeof(feudalRL_Library.Boss<,>),wS,RL,a,g,tO,mR,cP);

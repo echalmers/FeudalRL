@@ -22,7 +22,7 @@ namespace MultiResolutionRL.ValueCalculation
         Dictionary<stateType, Dictionary<stateType, List<actionType>>> predecessors;
         Dictionary<stateType, double> priority;
 
-        public System.IO.StreamWriter writer;
+       /// public System.IO.StreamWriter writer;
 
         Random rnd = new Random(1);
 
@@ -111,8 +111,8 @@ namespace MultiResolutionRL.ValueCalculation
 
         public override void update(StateTransition<stateType, actionType> transition)
         {
-            if (writer==null)
-                writer = new System.IO.StreamWriter("C:\\Users\\Eric\\Google Drive\\Lethbridge Projects\\MultiResolutionRL\\Presentation Sept 28\\modelBasedUpdates.txt");
+           // if (writer==null)
+               // writer = new System.IO.StreamWriter("C:\\Users\\Eric\\Google Drive\\Lethbridge Projects\\MultiResolutionRL\\Presentation Sept 28\\modelBasedUpdates.txt");
 
             // retrieve current count and reward values
             int thisCount = T.Get(transition.oldState, transition.action, transition.newState);
@@ -235,9 +235,9 @@ namespace MultiResolutionRL.ValueCalculation
             //        }
             //    }
             //}
-            writer.WriteLine("total updates:," + totalUpdates);
-            writer.WriteLine("total accesses:," + accesses);
-            writer.Flush();
+           // writer.WriteLine("total updates:," + totalUpdates);
+            //writer.WriteLine("total accesses:," + accesses);
+            //writer.Flush();
             accesses = 0;
         }
 
