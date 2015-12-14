@@ -132,6 +132,7 @@ namespace feudalRL_Library
         //If a manager makes an impossible decision, it will have to punish itself in its run, when the timer runs out.
         public void reward(double rwrd)
         {
+            cumRwrd += bossHolder.envRwrd;
 
             cmdStatePairResult = getCmdStatePair();
 
@@ -144,16 +145,19 @@ namespace feudalRL_Library
             }
             else
             {
+
                 if (cmdStatePairResult == cmdStatePairDesired)//Went where Desired
                 {
+                    rwrd += cumRwrd;
+                    cumRwrd = 0;
                     StateTransition<int[], int[]> trans = new StateTransition<int[], int[]>(cmdStatePairOrigin, cmdIntMinor, rwrd, cmdStatePairResult);
                     learnMethodArray.update(trans);
                     nextManager.reward(bossHolder.managerRewards);
                 }
-                else 
+                else
                     if (cmdStatePairOrigin != cmdStatePairResult)//The result and origin are different, hence it has moved
-                    nextManager.reward(-bossHolder.managerRewards);  
-                             
+                { nextManager.reward(-bossHolder.managerRewards); cumRwrd = 0; }
+
                 else
                     nextManager.reward(0);
             }    
@@ -227,6 +231,7 @@ namespace feudalRL_Library
         int[] agentLocalLocation = new int[2];
         int time;
         int scaledTO = 1;
+        double cumRwrd = 0;
 
         //Used by the base Manager 
         bool isBase = false;
