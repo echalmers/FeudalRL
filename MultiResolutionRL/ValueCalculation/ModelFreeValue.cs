@@ -8,13 +8,13 @@ namespace MultiResolutionRL.ValueCalculation
 {
     public class ModelFreeValue<stateType, actionType> : ActionValue<stateType, actionType>
     {
-        double alpha = 0.9, gamma = 0.9;
+        double alpha = 0.1, gamma = 0.1;
         double defaultQ = 10;
         Dictionary<stateType, Dictionary<actionType, double>> table;
         IEqualityComparer<actionType> actionComparer;
         List<actionType> availableActions;
 
-        public ModelFreeValue(IEqualityComparer<stateType> stateComparer, IEqualityComparer<actionType> ActionComparer, List<actionType> AvailableActions, stateType StartState, params int[] parameters)
+        public ModelFreeValue(IEqualityComparer<stateType> stateComparer, IEqualityComparer<actionType> ActionComparer, List<actionType> AvailableActions, stateType StartState, params object[] parameters)
             : base(stateComparer, ActionComparer, AvailableActions, StartState, parameters)
         {
             table = new Dictionary<stateType, Dictionary<actionType, double>>(stateComparer);

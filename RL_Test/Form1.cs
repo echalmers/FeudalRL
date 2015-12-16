@@ -183,12 +183,45 @@ namespace RL_Test
 
         private void button2_Click(object sender, EventArgs e)
         {
-            int wS = 16;    //WorldSize p[0]
-            bool RL = false;    //RLMethod p[1];  'F' for QL, 'T' For MB
-            double a = 0.1; //alpha p[2];
-            double g = 0.8; //Gamma p[3];
-            int tO = wS;     //timeOut p[4];
-            double mR = 1; //Manager Rewards p[5];
+
+            int wS;    //WorldSize p[0]
+            bool RL;//RLMethod p[1];  'F' for QL, 'T' For MB
+            double a; //alpha p[2];
+            double g;//Gamma p[3];
+            int tO;    //timeOut p[4];
+            double mR; //Manager Rewards p[5];
+
+            Console.WriteLine("Use Default values?");
+            string ans = Console.ReadLine();
+            if (ans[0] == 'Y' || ans[0] == 'y')
+            {
+                wS = 16;    //WorldSize p[0]
+                RL = false;//RLMethod p[1];  'F' for QL, 'T' For MB
+                a = 0.99; //alpha p[2];
+                 g = 0.99; //Gamma p[3];
+                tO = wS;    //timeOut p[4];
+                mR = 2; //Manager Rewards p[5];
+            }
+            else
+            {
+                Console.WriteLine("WorldSize");
+                wS = Convert.ToInt32(Console.ReadLine());    //WorldSize p[0]
+                Console.WriteLine("1 for ModelBased :: 0 For Q-Learning");
+                if (Console.ReadLine() == "0")
+                   RL = false;//RLMethod p[1];  'F' for QL, 'T' For MB
+                else
+                    RL = true;
+
+                Console.WriteLine("AlphaValue");
+                a = Convert.ToDouble(Console.ReadLine()); //alpha p[2];
+                Console.WriteLine("GammaValue");
+                g = Convert.ToDouble(Console.ReadLine()); //Gamma p[3];
+                Console.WriteLine("TimeOut");
+                tO = Convert.ToInt32(Console.ReadLine());    //timeOut p[4];
+                Console.WriteLine("ManagerReward");
+                mR = Convert.ToDouble(Console.ReadLine());
+                Console.WriteLine("PRESS RUN");
+            }
             Policy<int[], int[]> cP = new EGreedyPolicy<int[], int[]> (); //chosen Policy p[6]
 
             world.addAgent(typeof(EGreedyPolicy<,>), typeof(feudalRL_Library.Boss<,>),wS,RL,a,g,tO,mR,cP);
