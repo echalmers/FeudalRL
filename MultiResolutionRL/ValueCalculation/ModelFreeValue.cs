@@ -8,7 +8,7 @@ namespace MultiResolutionRL.ValueCalculation
 {
     public class ModelFreeValue<stateType, actionType> : ActionValue<stateType, actionType>
     {
-        double alpha = 0.1, gamma = 0.1;
+        double alpha = 0.5, gamma = 0.5;
         double defaultQ = 10;
         Dictionary<stateType, Dictionary<actionType, double>> table;
         IEqualityComparer<actionType> actionComparer;

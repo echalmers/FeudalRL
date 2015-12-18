@@ -191,17 +191,17 @@ namespace RL_Test
             int tO;    //timeOut p[4];
             double mR; //Manager Rewards p[5];
 
-            Console.WriteLine("Use Default values?");
+           /* Console.WriteLine("Use Default values?");
             string ans = Console.ReadLine();
             if (ans[0] == 'Y' || ans[0] == 'y')
-            {
+            {*/
                 wS = 16;    //WorldSize p[0]
                 RL = false;//RLMethod p[1];  'F' for QL, 'T' For MB
-                a = 0.99; //alpha p[2];
-                 g = 0.99; //Gamma p[3];
+                a = 0.5; //alpha p[2];
+                 g = 0.5; //Gamma p[3];
                 tO = wS;    //timeOut p[4];
-                mR = 2; //Manager Rewards p[5];
-            }
+                mR = 1; //Manager Rewards p[5];
+          /*  }
             else
             {
                 Console.WriteLine("WorldSize");
@@ -221,7 +221,7 @@ namespace RL_Test
                 Console.WriteLine("ManagerReward");
                 mR = Convert.ToDouble(Console.ReadLine());
                 Console.WriteLine("PRESS RUN");
-            }
+            }*/
             Policy<int[], int[]> cP = new EGreedyPolicy<int[], int[]> (); //chosen Policy p[6]
 
             world.addAgent(typeof(EGreedyPolicy<,>), typeof(feudalRL_Library.Boss<,>),wS,RL,a,g,tO,mR,cP);
